@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import FormattedDate from "../components/FormattedDate.astro";
 import { SITE_TITLE, SITE_DESCRIPTION, AUTHOR } from "../consts";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -9,6 +8,12 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const latest = posts.slice(0, 4);
+
+const fmt = (d: Date) => ({
+  day: d.toLocaleDateString("en-GB", { day: "2-digit" }),
+  mon: d.toLocaleDateString("en-GB", { month: "short" }).toUpperCase(),
+  year: d.getFullYear(),
+});
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -32,19 +37,40 @@ const latest = posts.slice(0, 4);
       latest.length === 0 ? (
         <p class="muted">No posts yet — check back soon.</p>
       ) : (
-        <ul class="post-list">
-          {latest.map((post) => (
-            <li>
-              <a href={`${base}/blog/${post.id}`} class="post-link">
-                <span class="post-title">{post.data.title}</span>
-                <FormattedDate date={post.data.pubDate} />
-              </a>
-              <p class="post-desc muted">{post.data.description}</p>
-            </li>
-          ))}
+        <ul class="post-cards">
+          {latest.map((post) => {
+            const d = fmt(post.data.pubDate);
+            return (
+              <li>
+                <a href={`${base}/blog/${post.id}`} class="card-link">
+                  {post.data.cover && (
+                    <div class="card-thumb">
+                      <img
+                        src={`${base}${post.data.cover}`}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <time class="card-date" datetime={post.data.pubDate.toISOString()}>
+                        <span class="cd-day">{d.day}</span>
+                        <span class="cd-my">{d.mon} {d.year}</span>
+                      </time>
+                    </div>
+                  )}
+                  <div class="card-body">
+                    <span class="card-title">{post.data.title}</span>
+                    <p class="card-desc">{post.data.description}</p>
+                  </div>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       )
     }
+    <p class="all-link">
+      <a href={`${base}/blog`}>All posts →</a>
+    </p>
   </section>
 </BaseLayout>
 
@@ -68,52 +94,138 @@ const latest = posts.slice(0, 4);
     max-width: var(--measure);
     margin-inline: auto;
   }
-  .post-list {
+
+  .post-cards {
     list-style: none;
     padding: 0;
-    margin: 1.5rem 0 0;
-  }
-  .post-list li {
-    padding-block: 1.25rem;
-    border-top: 1px solid var(--border);
-  }
-  .post-link {
+    margin: 1.75rem 0 0;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-direction: column;
     gap: 1rem;
+  }
+
+  .card-link {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
     color: var(--text);
+    transition: border-color 0.18s ease, transform 0.18s ease,
+      box-shadow 0.18s ease;
   }
-  .post-link:hover {
+  .card-link:hover {
     text-decoration: none;
+    border-color: var(--accent-2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px var(--accent-2), 0 12px 30px rgba(0, 0, 0, 0.4),
+      0 0 24px rgba(255, 121, 198, 0.18);
   }
-  .post-title {
+
+  /* Thumbnail */
+  .card-thumb {
+    position: relative;
+    flex: 0 0 36%;
+    max-width: 210px;
+    min-height: 130px;
+    overflow: hidden;
+    background: var(--bg-soft);
+    border-right: 1px solid var(--border);
+  }
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .card-link:hover .card-thumb img {
+    transform: scale(1.06);
+  }
+
+  /* Date badge — HUD calendar stamp */
+  .card-date {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(20, 21, 29, 0.82);
+    backdrop-filter: blur(4px);
+    border-right: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    border-bottom-right-radius: 8px;
+    padding: 0.35rem 0.6rem;
+    font-family: var(--font-mono);
+    line-height: 1;
+  }
+  .cd-day {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cd-my {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--cyan);
+    margin-top: 3px;
+  }
+
+  /* Body */
+  .card-body {
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .card-title {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.12rem;
     letter-spacing: 0.01em;
+    color: var(--text);
     transition: color 0.15s ease, text-shadow 0.15s ease;
   }
-  .post-title::before {
-    content: "▶ ";
-    color: var(--accent-2);
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-  .post-link:hover .post-title {
+  .card-link:hover .card-title {
     color: var(--accent-hover);
     text-shadow: var(--glow-pink);
   }
-  .post-link:hover .post-title::before {
-    opacity: 1;
+  .card-desc {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .post-link time {
-    color: var(--text-faint);
-    font-size: 0.85rem;
-    white-space: nowrap;
+
+  .all-link {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.9rem;
   }
-  .post-desc {
-    margin: 0.4rem 0 0;
-    font-size: 0.98rem;
+
+  @media (max-width: 560px) {
+    .card-link {
+      flex-direction: column;
+    }
+    .card-thumb {
+      flex-basis: auto;
+      max-width: none;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
   }
 </style>

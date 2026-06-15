@@ -2,6 +2,7 @@
 title: "2d GI Series #3 - Simple gi raymarching"
 description: "The third part of the 2d global illumination series covering raymarching our scene with the help of the distance field we generated on the second part"
 pubDate: 2024-02-20
+cover: "/media/blog/2d-gi-series-3-simple-gi-raymarching/card.png"
 tags: ["unity", "render pipeline", "global illumination", "sdf", "raymarching"]
 ---
 ## Our goals for the third part

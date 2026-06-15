@@ -2,6 +2,7 @@
 title: "2d GI Series #2 - Generating sdf on runtime"
 description: "The second part of the 2d global illumination series covering the runtime generation of the signed distance field representation of our scene using the JFA (Jump Flood Algorithm)"
 pubDate: 2024-01-26
+cover: "/media/blog/2d-gi-series-2-generating-sdf-on-runtime/card.png"
 tags: ["unity", "render pipeline", "global illumination", "jump flood", "voronoi", "sdf"]
 ---
 ## Our goals for the second part

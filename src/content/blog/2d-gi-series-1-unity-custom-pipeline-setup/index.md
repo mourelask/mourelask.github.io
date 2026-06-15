@@ -2,6 +2,7 @@
 title: "2d GI Series #1 - Unity custom pipeline setup"
 description: "The first part of the 2d global illumination series covering the setup of a minimal custom render pipeline in Unity game engine"
 pubDate: 2024-01-18
+cover: "/media/blog/2d-gi-series-1-unity-custom-pipeline-setup/card.png"
 tags: ["unity", "render pipeline", "global illumination", "render graph"]
 ---
 ## Our goals for the first part
