@@ -1,0 +1,170 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+const { post } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const d = post.data.pubDate;
+const day = d.toLocaleDateString("en-GB", { day: "2-digit" });
+const mon = d.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+const year = d.getFullYear();
+---
+
+<li class="post-card">
+  <a href={`${base}/blog/${post.id}`} class="card-link">
+    {
+      post.data.cover && (
+        <div class="card-thumb">
+          <img
+            src={`${base}${post.data.cover}`}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <time class="card-date" datetime={d.toISOString()}>
+            <span class="cd-day">{day}</span>
+            <span class="cd-my">
+              {mon} {year}
+            </span>
+          </time>
+        </div>
+      )
+    }
+    <div class="card-body">
+      <span class="card-title">{post.data.title}</span>
+      <p class="card-desc">{post.data.description}</p>
+      {
+        post.data.tags.length > 0 && (
+          <ul class="hud-tags card-tags">
+            {post.data.tags.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </a>
+</li>
+
+<style>
+  .card-link {
+    display: flex;
+    align-items: stretch;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    color: var(--text);
+    transition: border-color 0.18s ease, transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .card-link:hover {
+    text-decoration: none;
+    border-color: var(--accent-2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px var(--accent-2), 0 12px 30px rgba(0, 0, 0, 0.4),
+      0 0 24px rgba(255, 121, 198, 0.18);
+  }
+
+  /* Thumbnail */
+  .card-thumb {
+    position: relative;
+    flex: 0 0 36%;
+    max-width: 210px;
+    min-height: 140px;
+    overflow: hidden;
+    background: var(--bg-soft);
+    border-right: 1px solid var(--border);
+  }
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .card-link:hover .card-thumb img {
+    transform: scale(1.06);
+  }
+
+  /* Date badge — HUD calendar stamp */
+  .card-date {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(20, 21, 29, 0.82);
+    backdrop-filter: blur(4px);
+    border-right: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    border-bottom-right-radius: 8px;
+    padding: 0.35rem 0.6rem;
+    font-family: var(--font-mono);
+    line-height: 1;
+  }
+  .cd-day {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cd-my {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--cyan);
+    margin-top: 3px;
+  }
+
+  /* Body */
+  .card-body {
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.12rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+  }
+  .card-link:hover .card-title {
+    color: var(--accent-hover);
+    text-shadow: var(--glow-pink);
+  }
+  .card-desc {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-tags {
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 560px) {
+    .card-link {
+      flex-direction: column;
+    }
+    .card-thumb {
+      flex-basis: auto;
+      max-width: none;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+  }
+</style>

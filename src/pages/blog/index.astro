@@ -1,9 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
+import PostCard from "../../components/PostCard.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -16,84 +15,14 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
     <p class="muted">Notes on gamedev, tech art, and graphics rabbit holes.</p>
   </div>
 
-  <ul class="post-list">
-    {
-      posts.map((post) => (
-        <li>
-          <a href={`${base}/blog/${post.id}`} class="post-link">
-            <div class="post-head">
-              <span class="post-title">{post.data.title}</span>
-              <FormattedDate date={post.data.pubDate} />
-            </div>
-            <p class="post-desc muted">{post.data.description}</p>
-            {post.data.tags.length > 0 && (
-              <ul class="hud-tags">
-                {post.data.tags.map((t) => (
-                  <li>{t}</li>
-                ))}
-              </ul>
-            )}
-          </a>
-        </li>
-      ))
-    }
+  <ul class="post-cards">
+    {posts.map((post) => <PostCard post={post} />)}
   </ul>
 </BaseLayout>
 
 <style>
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 2rem auto 0;
+  .post-cards {
     max-width: var(--measure);
-  }
-  .post-list > li {
-    padding-block: 1.5rem;
-    border-top: 1px solid var(--border);
-  }
-  .post-link {
-    color: var(--text);
-    display: block;
-  }
-  .post-link:hover {
-    text-decoration: none;
-  }
-  .post-link:hover .post-title {
-    color: var(--accent-hover);
-    text-shadow: var(--glow-pink);
-  }
-  .post-link:hover .post-title::before {
-    opacity: 1;
-  }
-  .post-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-  }
-  .post-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.3rem;
-    letter-spacing: 0.01em;
-    transition: color 0.15s ease, text-shadow 0.15s ease;
-  }
-  .post-title::before {
-    content: "▶ ";
-    color: var(--accent-2);
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-  .post-head time {
-    color: var(--text-faint);
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-  .post-desc {
-    margin: 0.5rem 0 0;
-    font-size: 0.98rem;
-  }
-  .post-link :global(.hud-tags) {
-    margin-top: 0.8rem;
+    margin: 2rem auto 0;
   }
 </style>

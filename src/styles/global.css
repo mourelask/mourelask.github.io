@@ -426,6 +426,16 @@ main {
   color: #fff;
 }
 
+/* Shared post-card list (home + blog index) */
+.post-cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /* Gradient text utility */
 .neon-text {
   background: var(--neon-gradient);
