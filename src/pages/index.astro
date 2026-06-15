@@ -1,0 +1,100 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { SITE_TITLE, SITE_DESCRIPTION, AUTHOR } from "../consts";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const latest = posts.slice(0, 4);
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <section class="intro prose">
+    <h1>Hey, I'm {AUTHOR.split(" ")[0]}.</h1>
+    <p>
+      I'm a tech artist and gamedev — I like building small game engines,
+      breaking render pipelines, and writing about the graphics rabbit holes I
+      fall into. This is where I keep notes on the things I make.
+    </p>
+    <p class="cta">
+      <a href={`${base}/blog`}>Read the blog →</a>
+      <a href={`${base}/about`}>More about me →</a>
+    </p>
+  </section>
+
+  <section class="latest">
+    <h2>Latest posts</h2>
+    {
+      latest.length === 0 ? (
+        <p class="muted">No posts yet — check back soon.</p>
+      ) : (
+        <ul class="post-list">
+          {latest.map((post) => (
+            <li>
+              <a href={`${base}/blog/${post.id}`} class="post-link">
+                <span class="post-title">{post.data.title}</span>
+                <FormattedDate date={post.data.pubDate} />
+              </a>
+              <p class="post-desc muted">{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-block: 1rem 3.5rem;
+  }
+  .cta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-weight: 500;
+  }
+  .latest {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+  .post-list li {
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .post-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    color: var(--text);
+  }
+  .post-link:hover {
+    text-decoration: none;
+  }
+  .post-link:hover .post-title {
+    color: var(--accent);
+  }
+  .post-title {
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .post-link time {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .post-desc {
+    margin: 0.4rem 0 0;
+    font-size: 0.98rem;
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import { SITE_TITLE, NAV_LINKS } from "../consts";
+
+const base = import.meta.env.BASE_URL;
+// Normalize the current path for active-link comparison (strip base + trailing slash).
+const stripBase = (p: string) =>
+  ("/" + p.replace(base, "").replace(/^\/+/, "")).replace(/\/$/, "") || "/";
+const current = stripBase(Astro.url.pathname);
+
+const isActive = (href: string) => {
+  if (href === "/") return current === "/";
+  return current === href || current.startsWith(href + "/");
+};
+const withBase = (href: string) =>
+  (base.replace(/\/$/, "") + href).replace(/^$/, "/");
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={withBase("/")} class="brand">{SITE_TITLE}</a>
+    <nav aria-label="Primary">
+      <ul>
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                href={withBase(link.href)}
+                aria-current={isActive(link.href) ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.9rem;
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .brand:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.4rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    font-weight: 500;
+  }
+  nav a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+  nav a[aria-current="page"] {
+    color: var(--text);
+  }
+  nav a[aria-current="page"]::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-top: 2px;
+  }
+</style>
