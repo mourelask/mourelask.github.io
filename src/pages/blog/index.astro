@@ -11,6 +11,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 
 <BaseLayout title="Blog" description="Notes on gamedev, tech art, and graphics.">
   <div class="prose">
+    <p class="kicker">// DEVLOG</p>
     <h1>Blog</h1>
     <p class="muted">Notes on gamedev, tech art, and graphics rabbit holes.</p>
   </div>
@@ -26,7 +27,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
             </div>
             <p class="post-desc muted">{post.data.description}</p>
             {post.data.tags.length > 0 && (
-              <ul class="tags">
+              <ul class="hud-tags">
                 {post.data.tags.map((t) => (
                   <li>{t}</li>
                 ))}
@@ -58,7 +59,11 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
     text-decoration: none;
   }
   .post-link:hover .post-title {
-    color: var(--accent);
+    color: var(--accent-hover);
+    text-shadow: var(--glow-pink);
+  }
+  .post-link:hover .post-title::before {
+    opacity: 1;
   }
   .post-head {
     display: flex;
@@ -67,9 +72,17 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
     gap: 1rem;
   }
   .post-title {
+    font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+  }
+  .post-title::before {
+    content: "▶ ";
+    color: var(--accent-2);
+    opacity: 0;
+    transition: opacity 0.15s ease;
   }
   .post-head time {
     color: var(--text-faint);
@@ -80,21 +93,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
     margin: 0.5rem 0 0;
     font-size: 0.98rem;
   }
-  .tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0;
-    margin: 0.8rem 0 0;
-  }
-  .tags li {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.1rem 0.65rem;
+  .post-link :global(.hud-tags) {
+    margin-top: 0.8rem;
   }
 </style>

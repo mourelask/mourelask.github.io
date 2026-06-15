@@ -13,15 +13,16 @@ const latest = posts.slice(0, 4);
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="intro prose">
-    <h1>Hey, I'm {AUTHOR.split(" ")[0]}.</h1>
+    <p class="kicker">// PORTFOLIO + DEVLOG</p>
+    <h1>Hey, I'm <span class="neon-text">{AUTHOR.split(" ")[0]}</span>.</h1>
     <p>
       I'm a tech artist and gamedev — I like building small game engines,
       breaking render pipelines, and writing about the graphics rabbit holes I
       fall into. This is where I keep notes on the things I make.
     </p>
     <p class="cta">
-      <a href={`${base}/blog`}>Read the blog →</a>
-      <a href={`${base}/about`}>More about me →</a>
+      <a href={`${base}/blog`} class="cta-link">Read the blog →</a>
+      <a href={`${base}/about`} class="cta-link">More about me →</a>
     </p>
   </section>
 
@@ -55,7 +56,13 @@ const latest = posts.slice(0, 4);
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
-    font-weight: 500;
+  }
+  .cta-link {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.92rem;
   }
   .latest {
     max-width: var(--measure);
@@ -80,13 +87,25 @@ const latest = posts.slice(0, 4);
   .post-link:hover {
     text-decoration: none;
   }
-  .post-link:hover .post-title {
-    color: var(--accent);
-  }
   .post-title {
+    font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.15rem;
-    letter-spacing: -0.01em;
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+  }
+  .post-title::before {
+    content: "▶ ";
+    color: var(--accent-2);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .post-link:hover .post-title {
+    color: var(--accent-hover);
+    text-shadow: var(--glow-pink);
+  }
+  .post-link:hover .post-title::before {
+    opacity: 1;
   }
   .post-link time {
     color: var(--text-faint);

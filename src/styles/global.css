@@ -1,32 +1,59 @@
 /* ============================================================
-   Design tokens — dark by default, typography-forward.
+   Dracula synthwave — 80s anime x retro gaming, modernized.
+   Vibrant neon accents on display/interactive elements;
+   calm, readable body text for long-form posts.
    ============================================================ */
 :root {
-  /* Color — a calm, deep neutral palette with one violet accent. */
-  --bg: #0d0f13;
-  --bg-soft: #14171d;
-  --surface: #181c23;
-  --border: #262b34;
-  --text: #e7e9ee;
-  --text-muted: #9aa3b0;
-  --text-faint: #6b7280;
-  --accent: #a78bfa;
-  --accent-hover: #c4b5fd;
-  --mark: rgba(167, 139, 250, 0.18);
-  --code-bg: #161b22;
-  --selection: rgba(167, 139, 250, 0.28);
+  /* --- Dracula palette --- */
+  --bg: #1e1f29; /* slightly darker than base so surfaces pop */
+  --bg-soft: #282a36; /* dracula background */
+  --surface: #2a2c3a;
+  --surface-2: #343746;
+  --border: #44475a; /* dracula current-line */
+  --text: #f8f8f2; /* dracula foreground */
+  --text-muted: #b6b9d0;
+  --text-faint: #6272a4; /* dracula comment */
 
-  /* Type */
-  --font-sans: "Inter Variable", system-ui, -apple-system, Segoe UI, Roboto,
-    Helvetica, Arial, sans-serif;
+  --purple: #bd93f9;
+  --pink: #ff79c6;
+  --cyan: #8be9fd;
+  --green: #50fa7b;
+  --orange: #ffb86c;
+  --yellow: #f1fa8c;
+  --red: #ff5555;
+
+  /* Semantic accents */
+  --accent: var(--purple);
+  --accent-hover: var(--pink);
+  --accent-2: var(--pink);
+  --accent-3: var(--cyan);
+  --mark: rgba(255, 121, 198, 0.22);
+  --code-bg: #282a36;
+  --selection: rgba(189, 147, 249, 0.35);
+
+  /* Neon gradient used on display text / accents */
+  --neon-gradient: linear-gradient(
+    100deg,
+    var(--pink) 0%,
+    var(--purple) 45%,
+    var(--cyan) 100%
+  );
+  --glow-accent: 0 0 18px rgba(189, 147, 249, 0.45);
+  --glow-pink: 0 0 16px rgba(255, 121, 198, 0.5);
+
+  /* --- Type --- */
+  --font-display: "Chakra Petch", "Space Grotesk Variable", system-ui, sans-serif;
+  --font-sans: "Space Grotesk Variable", system-ui, -apple-system, Segoe UI,
+    Roboto, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
     Consolas, monospace;
+  --font-pixel: "Press Start 2P", "Chakra Petch", monospace;
 
-  /* Layout */
-  --measure: 46rem; /* readable line length for prose */
-  --wide: 64rem; /* wider container for listings */
+  /* --- Layout --- */
+  --measure: 46rem;
+  --wide: 64rem;
   --space: 1.5rem;
-  --radius: 10px;
+  --radius: 8px;
 }
 
 /* ============================================================
@@ -45,20 +72,69 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.0625rem; /* 17px */
   line-height: 1.7;
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "cv05", "ss01";
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Layered synthwave background: corner glows + faint grid.
+   Subtle on purpose — texture, not a light show. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 15% -10%,
+      rgba(189, 147, 249, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 100% 0%,
+      rgba(255, 121, 198, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 50% 120%,
+      rgba(139, 233, 253, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(rgba(68, 71, 90, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(68, 71, 90, 0.12) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    44px 44px,
+    44px 44px;
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    -1px -1px,
+    -1px -1px;
+  /* Fade the grid out toward the middle so content stays calm. */
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 35%, transparent 90%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 100% 80% at 50% 0%,
+    #000 35%,
+    transparent 90%
+  );
 }
 
 ::selection {
   background: var(--selection);
+  color: #fff;
 }
 
 img,
@@ -78,26 +154,39 @@ h1,
 h2,
 h3,
 h4 {
-  line-height: 1.2;
+  font-family: var(--font-display);
+  line-height: 1.15;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   margin: 2.5rem 0 1rem;
   color: var(--text);
   scroll-margin-top: 5rem;
 }
 
 h1 {
-  font-size: clamp(2rem, 1.4rem + 2.6vw, 2.9rem);
+  font-size: clamp(2.1rem, 1.4rem + 3vw, 3.1rem);
   margin-top: 0;
+  letter-spacing: 0.005em;
 }
 h2 {
-  font-size: clamp(1.5rem, 1.2rem + 1.3vw, 1.9rem);
+  font-size: clamp(1.55rem, 1.2rem + 1.4vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+/* Neon bracket accent on section headings */
+h2::before {
+  content: "▍";
+  color: var(--accent);
+  margin-right: 0.5rem;
+  text-shadow: var(--glow-accent);
 }
 h3 {
   font-size: 1.3rem;
+  color: var(--cyan);
 }
 h4 {
   font-size: 1.1rem;
+  color: var(--text);
 }
 
 p,
@@ -115,23 +204,25 @@ a {
   text-decoration: none;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
 }
 a:hover {
   color: var(--accent-hover);
   text-decoration: underline;
+  text-shadow: var(--glow-pink);
 }
 
 strong {
-  font-weight: 650;
-  color: var(--text);
+  font-weight: 600;
+  color: #fff;
 }
 
 mark {
   background: var(--mark);
   color: var(--text);
-  padding: 0.05em 0.3em;
+  padding: 0.05em 0.4em;
   border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255, 121, 198, 0.3);
 }
 
 blockquote {
@@ -143,7 +234,15 @@ blockquote {
 
 hr {
   border: none;
-  border-top: 1px solid var(--border);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border) 20%,
+    var(--accent) 50%,
+    var(--border) 80%,
+    transparent
+  );
   margin: 3rem 0;
 }
 
@@ -154,13 +253,16 @@ ol {
 li {
   margin: 0.35rem 0;
 }
+li::marker {
+  color: var(--accent);
+}
 
 /* ============================================================
-   Code
+   Code — Dracula
    ============================================================ */
 code {
   font-family: var(--font-mono);
-  font-size: 0.9em;
+  font-size: 0.88em;
 }
 
 :not(pre) > code {
@@ -168,21 +270,37 @@ code {
   border: 1px solid var(--border);
   padding: 0.12em 0.4em;
   border-radius: 5px;
+  color: var(--pink);
 }
 
 pre {
   background: var(--code-bg) !important;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.1rem 1.25rem;
+  padding: 1.2rem 1.3rem;
   overflow-x: auto;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.6;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(189, 147, 249, 0.06), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+/* Neon top edge on code blocks */
+pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--neon-gradient);
+  border-radius: var(--radius) var(--radius) 0 0;
+  opacity: 0.8;
 }
 pre code {
   background: none;
   border: none;
   padding: 0;
+  color: inherit;
 }
 
 /* ============================================================
@@ -201,6 +319,25 @@ td {
 }
 th {
   background: var(--bg-soft);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  color: var(--cyan);
+}
+
+details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  margin: 0 0 1.25rem;
+  background: rgba(40, 42, 54, 0.5);
+}
+details summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--cyan);
 }
 
 /* ============================================================
@@ -223,6 +360,7 @@ th {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   margin: 1.5rem auto;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
 .prose figcaption {
@@ -230,6 +368,7 @@ th {
   color: var(--text-faint);
   font-size: 0.85rem;
   margin: -0.75rem auto 1.75rem;
+  font-family: var(--font-mono);
 }
 
 main {
@@ -239,6 +378,56 @@ main {
 
 .muted {
   color: var(--text-muted);
+}
+
+/* Small uppercase HUD kicker label */
+.kicker {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(139, 233, 253, 0.5);
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+/* HUD-style tag chips with clipped corners */
+.hud-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+.hud-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--cyan);
+  background: rgba(139, 233, 253, 0.07);
+  border: 1px solid rgba(139, 233, 253, 0.35);
+  padding: 0.15rem 0.7rem;
+  clip-path: polygon(
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px
+  );
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.hud-tags li:hover {
+  background: rgba(139, 233, 253, 0.16);
+  color: #fff;
+}
+
+/* Gradient text utility */
+.neon-text {
+  background: var(--neon-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Visually hidden but accessible */
@@ -254,13 +443,12 @@ main {
   border: 0;
 }
 
-/* Skip link for keyboard users */
 .skip-link {
   position: absolute;
   left: -999px;
   top: 0.5rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   z-index: 100;
@@ -273,4 +461,12 @@ main {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
