@@ -82,6 +82,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+  /* Sticky-footer layout: header + main(grows) + footer fills the viewport,
+     so the footer is pinned to the bottom with no dead space below it. */
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -373,7 +377,7 @@ details summary {
 
 main {
   padding-block: 3rem 4rem;
-  min-height: 60vh;
+  flex: 1 0 auto;
 }
 
 .muted {
