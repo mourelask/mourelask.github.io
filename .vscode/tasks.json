@@ -1,0 +1,57 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev: preview site",
+      "detail": "Start the Astro dev server with live reload (http://localhost:4321)",
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Build site",
+      "detail": "Production build to ./dist",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Preview production build",
+      "detail": "Serve the built ./dist locally to check the final output",
+      "type": "npm",
+      "script": "preview",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Publish: build, commit & push",
+      "detail": "Builds (to catch errors), commits all changes, and pushes to GitHub",
+      "type": "process",
+      "command": "node",
+      "args": ["scripts/publish.mjs", "${input:commitMessage}"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "type": "promptString",
+      "description": "Commit message for this update",
+      "default": "Update content"
+    }
+  ]
+}

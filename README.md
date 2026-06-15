@@ -12,6 +12,25 @@ npm run build    # build the production site to ./dist
 npm run preview  # preview the production build locally
 ```
 
+## In VS Code
+
+Recommended: install the **Astro** extension (VS Code will prompt you from
+`.vscode/extensions.json`).
+
+Run tasks with **Ctrl+Shift+P → "Tasks: Run Task"** (or **Ctrl+Shift+B** for
+the default preview task):
+
+- **Dev: preview site** — starts the live-reload server; Ctrl+click the
+  `localhost:4321` link in the terminal to open it.
+- **Build site** / **Preview production build** — build and check the final output.
+- **Publish: build, commit & push** — prompts for a commit message, then
+  builds, commits everything, and pushes (which triggers the GitHub Pages
+  deploy). Requires the git remote to be set up once first.
+
+> If a task reports "node not found", reload the window
+> (**Ctrl+Shift+P → "Developer: Reload Window"**) so the terminal picks up the
+> newly installed Node.
+
 ## Writing posts
 
 Blog posts live in `src/content/blog/<slug>/index.md`. Each post needs this
