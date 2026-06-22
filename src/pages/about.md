@@ -110,7 +110,11 @@ As a co-owner of the award winning indie studio <a href="https://envysoftworks.c
 
 Technical Artist & Programmer — lead your band of survivors on a perilous trek across unforgiving sands in search of a new home.
 
-![Dunebound Tactics](/media/about/dunebound_tactics.jpg)
+<video controls loop muted playsinline preload="none" poster="/media/about/dunebound_tactics.jpg">
+  <source src="/media/about/dunebound_trailer.mp4" type="video/mp4" />
+  <source src="/media/about/dunebound_trailer.webm" type="video/webm" />
+  <img src="/media/about/dunebound_tactics.jpg" alt="Dunebound Tactics" />
+</video>
 <figcaption>Wishlist on <a href="https://store.steampowered.com/app/3034660/Dunebound_Tactics/">Steam</a> — a demo is available now</figcaption>
 
 ### RuneSmith
@@ -119,7 +123,11 @@ Technical Artist & Programmer — lead your band of survivors on a perilous trek
 
 Technical Artist & Programmer — a humorous RPG where a grudge-holding dwarf runesmith engraves powerful runes, talks to other dwarves, and kills everything else.
 
-![RuneSmith](/media/about/runesmith.jpg)
+<video controls loop muted playsinline preload="none" poster="/media/about/runesmith.jpg">
+  <source src="/media/about/runesmith_trailer.mp4" type="video/mp4" />
+  <source src="/media/about/runesmith_trailer.webm" type="video/webm" />
+  <img src="/media/about/runesmith.jpg" alt="RuneSmith" />
+</video>
 <figcaption>Wishlist on <a href="https://store.steampowered.com/app/3716320/RuneSmith/">Steam</a></figcaption>
 
 ### Basements 'n' Basilisks
