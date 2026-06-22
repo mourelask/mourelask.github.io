@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/PageLayout.astro
 title: "About — Konstantinos Mourelas"
-description: "Tech artist and gamedev. Former co-owner and tech/art director at eNVy softworks."
+description: "Technical Artist & Programmer at Terahard, building Dunebound Tactics and RuneSmith. Former co-owner & tech/art director at eNVy softworks."
 ---
 
 ```
@@ -20,7 +20,7 @@ description: "Tech artist and gamedev. Former co-owner and tech/art director at 
 
 # About
 
-Hey, I am Konstantinos Mourelas (you can call me moure)! The last twenty years at one point or the other I've wanted to become an electrical engineer, a photographer, a 3d artist, a game developer, a tech artist and all between 😀 Until recently I was a co-owner and tech art director of the indie game studio <a href="https://envysoftworks.com/">eNVy softworks</a>, based in Patras, Greece. Between our commissions we recently released our first game on steam called <a href="https://store.steampowered.com/app/2236860/Basements_n_Basilisks_Storms_of_Sorcery/">Basements n' Basilisks</a>.
+Hey, I am Konstantinos Mourelas (you can call me moure)! The last twenty years at one point or the other I've wanted to become an electrical engineer, a photographer, a 3d artist, a game developer, a tech artist and all between 😀 These days I work as a Technical Artist & Programmer at <a href="https://terahard.org/">Terahard</a>, where I'm building two upcoming games — <a href="https://store.steampowered.com/app/3034660/Dunebound_Tactics/">Dunebound Tactics</a> and <a href="https://store.steampowered.com/app/3716320/RuneSmith/">RuneSmith</a>. Before that I was a co-owner and tech art director of the indie studio <a href="https://envysoftworks.com/">eNVy softworks</a> in Patras, Greece, where we shipped our first Steam game, <a href="https://store.steampowered.com/app/2236860/Basements_n_Basilisks_Storms_of_Sorcery/">Basements n' Basilisks</a>.
 
 In my free time i like coding small game engines, finding new ways to break the Unity render pipelines (not that hard), playing video games, watching tv shows, helping new game devs and 3d artists on online communities and reading the latest fantasy/sci-fi novels. I should really find some hobbies to get me out of the house more.. nah let's just start a podcast 😊
 
@@ -33,6 +33,16 @@ As far as social media goes, I have a <a href="https://mastodon.gamedev.place/@m
 Feel also free to send me an email over at <a href="mailto:mourelask@gmail.com">mourelask@gmail.com</a>
 
 ## Experience
+
+### Technical Artist & Programmer
+
+<mark>Terahard, May 2024 - Present</mark>
+
+At <a href="https://terahard.org/">Terahard</a> I work across both tech art and gameplay programming on two upcoming titles:
+
+* <strong><a href="https://store.steampowered.com/app/3034660/Dunebound_Tactics/">Dunebound Tactics</a></strong> — a roguelite turn-based tactical RPG
+* <strong><a href="https://store.steampowered.com/app/3716320/RuneSmith/">RuneSmith</a></strong> — a humorous dwarven crafting RPG
+* Shaders, VFX and rendering work alongside gameplay systems and editor tooling
 
 ### Technical/Art Director
 
@@ -93,6 +103,24 @@ As a co-owner of the award winning indie studio <a href="https://envysoftworks.c
 * Undergraduate student - Master Thesis: Unbiased 3d Rendering for Photorealism
 
 ## Projects
+
+### Dunebound Tactics
+
+<mark>Terahard, Roguelite Turn-Based Tactical RPG, Coming soon to Steam</mark>
+
+Technical Artist & Programmer — lead your band of survivors on a perilous trek across unforgiving sands in search of a new home.
+
+![Dunebound Tactics](/media/about/dunebound_tactics.jpg)
+<figcaption>Wishlist on <a href="https://store.steampowered.com/app/3034660/Dunebound_Tactics/">Steam</a> — a demo is available now</figcaption>
+
+### RuneSmith
+
+<mark>Terahard, Crafting RPG, Coming soon to Steam</mark>
+
+Technical Artist & Programmer — a humorous RPG where a grudge-holding dwarf runesmith engraves powerful runes, talks to other dwarves, and kills everything else.
+
+![RuneSmith](/media/about/runesmith.jpg)
+<figcaption>Wishlist on <a href="https://store.steampowered.com/app/3716320/RuneSmith/">Steam</a></figcaption>
 
 ### Basements 'n' Basilisks
 
