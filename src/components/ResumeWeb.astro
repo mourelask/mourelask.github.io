@@ -1,0 +1,124 @@
+---
+// Renders the Experience / Education / Skills sections on the About page
+// from the shared résumé data (synthwave-styled to match the site).
+import { EXPERIENCE, EDUCATION, SKILLS } from "../data/resume";
+---
+
+<section class="resume">
+  <h2>Experience</h2>
+  {
+    EXPERIENCE.map((job) => (
+      <div class="r-job">
+        <h3 class="r-role">{job.role}</h3>
+        <p class="r-where">
+          <mark>
+            {job.url ? <a href={job.url}>{job.company}</a> : job.company}
+            {job.location ? `, ${job.location}` : ""} · {job.period}
+          </mark>
+        </p>
+        {job.summary && <p class="r-summary">{job.summary}</p>}
+        {job.bullets && job.bullets.length > 0 && (
+          <ul>
+            {job.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        )}
+        {job.projects && job.projects.length > 0 && (
+          <div class="r-projects">
+            {job.projects.map((p) => (
+              <div class="r-project">
+                <p class="r-project-name">
+                  {p.url ? <a href={p.url}>{p.name}</a> : p.name}
+                </p>
+                <ul>
+                  {p.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  }
+
+  <h2>Education</h2>
+  {
+    EDUCATION.map((ed) => (
+      <div class="r-job">
+        <h3 class="r-role">{ed.degree}</h3>
+        <p class="r-where">
+          <mark>
+            {ed.school}
+            {ed.location ? `, ${ed.location}` : ""} · {ed.period}
+          </mark>
+        </p>
+        {ed.bullets && (
+          <ul>
+            {ed.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))
+  }
+
+  <h2>Skills</h2>
+  <ul class="r-skills">
+    {
+      SKILLS.map((g) => (
+        <li>
+          <strong>{g.label}:</strong> {g.value}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .r-job {
+    margin-bottom: 1.75rem;
+  }
+  .r-role {
+    margin-bottom: 0.25rem;
+  }
+  .r-where {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+  }
+  .r-summary {
+    margin-bottom: 0.6rem;
+  }
+  .r-projects {
+    margin-top: 0.75rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--border);
+  }
+  .r-project {
+    margin-bottom: 0.6rem;
+  }
+  .r-project-name {
+    margin: 0 0 0.15rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .r-project ul {
+    margin: 0;
+  }
+  .r-skills {
+    list-style: none;
+    padding: 0;
+  }
+  .r-skills li {
+    margin-bottom: 0.5rem;
+  }
+  .r-skills strong {
+    color: var(--cyan);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+</style>

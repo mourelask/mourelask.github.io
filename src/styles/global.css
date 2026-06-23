@@ -436,6 +436,33 @@ main {
   gap: 1rem;
 }
 
+/* Download-CV button (About page) */
+.cv-actions {
+  margin: 1.5rem 0;
+}
+.cv-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+  color: var(--bg);
+  background: var(--neon-gradient);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.cv-button:hover {
+  text-decoration: none;
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(189, 147, 249, 0.55);
+}
+
 /* Gradient text utility */
 .neon-text {
   background: var(--neon-gradient);

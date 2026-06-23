@@ -1,0 +1,230 @@
+---
+// Standalone, print-optimized CV rendered from the shared résumé data.
+// Viewable at /cv, and rendered to a PDF by scripts/generate-cv.mjs.
+import { PERSONAL, EXPERIENCE, EDUCATION, SKILLS } from "../data/resume";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{PERSONAL.name} — CV</title>
+  </head>
+  <body>
+    <main class="cv">
+      <header class="cv-head">
+        <h1>{PERSONAL.name}</h1>
+        <p class="cv-title">{PERSONAL.title}</p>
+        <p class="cv-contact">
+          <span>{PERSONAL.location}</span>
+          <span class="dot">•</span>
+          <a href={`mailto:${PERSONAL.email}`}>{PERSONAL.email}</a>
+          <span class="dot">•</span>
+          <a href={`https://${PERSONAL.website}`}>{PERSONAL.website}</a>
+        </p>
+      </header>
+
+      <section>
+        <h2>Professional Experience</h2>
+        {
+          EXPERIENCE.map((job) => (
+            <div class="job">
+              <div class="row">
+                <span class="company">
+                  {job.url ? <a href={job.url}>{job.company}</a> : job.company}
+                </span>
+                {job.location && <span class="loc">{job.location}</span>}
+              </div>
+              <div class="row">
+                <span class="role">{job.role}</span>
+                <span class="period">{job.period}</span>
+              </div>
+              {job.summary && <p class="summary">{job.summary}</p>}
+              {job.bullets && (
+                <ul>
+                  {job.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              )}
+              {job.projects && (
+                <div class="projects">
+                  {job.projects.map((p) => (
+                    <div class="project">
+                      <p class="proj-name">
+                        {p.url ? <a href={p.url}>{p.name}</a> : p.name}
+                      </p>
+                      <ul>
+                        {p.bullets.map((b) => (
+                          <li>{b}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        {
+          EDUCATION.map((ed) => (
+            <div class="job">
+              <div class="row">
+                <span class="company">{ed.degree}</span>
+                <span class="loc">
+                  {ed.school}
+                  {ed.location ? `, ${ed.location}` : ""}
+                </span>
+              </div>
+              <div class="row">
+                <span class="role">{ed.period}</span>
+              </div>
+              {ed.bullets && (
+                <ul>
+                  {ed.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>Additional Info</h2>
+        <ul class="skills">
+          {
+            SKILLS.map((g) => (
+              <li>
+                <strong>{g.label}:</strong> {g.value}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    margin: 0;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+  .cv {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 40px;
+  }
+  .cv-head {
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+  .cv-head h1 {
+    margin: 0;
+    font-size: 22pt;
+    letter-spacing: 0.5px;
+  }
+  .cv-title {
+    margin: 2px 0 6px;
+    font-size: 12pt;
+    font-weight: 600;
+    color: #333;
+  }
+  .cv-contact {
+    margin: 0;
+    font-size: 9.5pt;
+    color: #444;
+  }
+  .cv-contact .dot {
+    margin: 0 6px;
+    color: #999;
+  }
+  a {
+    color: #1155cc;
+    text-decoration: none;
+  }
+  h2 {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+    margin: 1.1rem 0 0.6rem;
+  }
+  .job {
+    margin-bottom: 0.7rem;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .company {
+    font-weight: 700;
+  }
+  .loc {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .role {
+    font-weight: 600;
+  }
+  .period {
+    white-space: nowrap;
+    color: #333;
+  }
+  .summary {
+    margin: 0.25rem 0;
+  }
+  ul {
+    margin: 0.25rem 0;
+    padding-left: 1.1rem;
+  }
+  li {
+    margin: 0.1rem 0;
+  }
+  .projects {
+    margin-top: 0.35rem;
+    padding-left: 0.9rem;
+  }
+  .project {
+    margin-bottom: 0.3rem;
+  }
+  .proj-name {
+    margin: 0;
+    font-weight: 600;
+    font-style: italic;
+  }
+  .skills li {
+    margin: 0.2rem 0;
+  }
+
+  @media print {
+    .cv {
+      padding: 0;
+      max-width: none;
+    }
+    a {
+      color: #1155cc;
+    }
+  }
+</style>

@@ -21,6 +21,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # The CV PDF is generated locally and committed to public/, so CI never
+    # needs Playwright's browser — skip the heavy Chromium download on install.
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4

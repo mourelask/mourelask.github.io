@@ -27,8 +27,9 @@ function capture(cmd, args) {
 }
 
 try {
-  // 1. Build first so we never push a site that doesn't compile.
-  run("npm", ["run", "build"], { shell: true });
+  // 1. Build + regenerate the CV PDF from the latest résumé data
+  //    (also fails fast if the site doesn't compile).
+  run("npm", ["run", "cv"], { shell: true });
 
   // 2. Stage everything.
   run("git", ["add", "-A"]);
