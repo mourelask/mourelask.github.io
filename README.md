@@ -6,11 +6,16 @@ Personal portfolio & blog — gamedev, tech art, and in-between. Built with
 ## Develop
 
 ```sh
-npm install      # install dependencies (first time only)
-npm run dev      # start the dev server at http://localhost:4321
-npm run build    # build the production site to ./dist
-npm run preview  # preview the production build locally
+npm install                      # install dependencies (first time only)
+npx playwright install chromium  # one-time: browser used to render the CV PDF
+npm run dev                      # start the dev server at http://localhost:4321
+npm run build                    # build the production site to ./dist
+npm run preview                  # preview the production build locally
 ```
+
+> The CV PDF (`npm run cv` / the Publish task) is rendered with headless
+> Chromium via Playwright. If you ever see *"Executable doesn't exist …
+> chrome-headless-shell"*, just re-run `npx playwright install chromium`.
 
 ## In VS Code
 
@@ -52,8 +57,20 @@ referenced with an absolute path, e.g.
 `![alt](/media/blog/<slug>/picture.png)` or
 `<video src="/media/blog/<slug>/clip.mp4" controls loop muted playsinline></video>`.
 
-Edit the About page at `src/pages/about.md`, and site-wide settings
+Edit the About page at `src/pages/about.mdx`, and site-wide settings
 (title, nav, social links) in `src/consts.ts`.
+
+## CV / résumé
+
+`src/data/resume.ts` is the single source of truth for your experience,
+education and skills. It feeds **all three** of:
+
+- the About page's Experience / Education / Skills sections,
+- the print-styled `/cv` page, and
+- the downloadable PDF (`public/Konstantinos_Mourelas_CV.pdf`).
+
+Edit `resume.ts`, then run `npm run cv` to rebuild and regenerate the PDF
+(the Publish task does this automatically). Preview the CV layout at `/cv`.
 
 ## Deploying
 
