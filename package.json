@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "cv": "astro build && node scripts/generate-cv.mjs",
+    "cv": "astro build && playwright install chromium && node scripts/generate-cv.mjs",
     "publish:site": "node scripts/publish.mjs",
     "astro": "astro"
   },

@@ -1,41 +1,15 @@
 // Render the /cv page to a PDF using headless Chromium (Playwright).
-// Assumes the site is already built (run via `npm run cv`, which builds first).
+// Assumes the site is already built and the browser is installed
+// (run via `npm run cv`, which does both first).
 // Output: public/Konstantinos_Mourelas_CV.pdf  (committed + served + deployed).
 import { chromium } from "playwright";
 import { spawn } from "node:child_process";
-import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
 
 const PORT = 4329;
 const URL = `http://localhost:${PORT}/cv`;
 const OUT = path.resolve("public/Konstantinos_Mourelas_CV.pdf");
 const astroBin = path.resolve("node_modules/astro/astro.js");
-
-// Find the on-disk Chromium that Playwright downloaded, and launch it directly.
-// Playwright's own browser-path resolution can fail in some shells (e.g. the
-// VS Code task) even when the browser is installed; pointing at the executable
-// explicitly sidesteps that entirely.
-function findBrowserExecutable() {
-  const base =
-    process.env.PLAYWRIGHT_BROWSERS_PATH &&
-    process.env.PLAYWRIGHT_BROWSERS_PATH !== "0"
-      ? process.env.PLAYWRIGHT_BROWSERS_PATH
-      : path.join(os.homedir(), "AppData", "Local", "ms-playwright");
-  if (!fs.existsSync(base)) return null;
-  const candidates = [];
-  for (const dir of fs.readdirSync(base)) {
-    if (dir.startsWith("chromium_headless_shell-")) {
-      candidates.push(
-        path.join(base, dir, "chrome-headless-shell-win64", "chrome-headless-shell.exe")
-      );
-    }
-    if (dir.startsWith("chromium-")) {
-      candidates.push(path.join(base, dir, "chrome-win", "chrome.exe"));
-    }
-  }
-  return candidates.find((p) => fs.existsSync(p)) || null;
-}
 
 function waitForServer(url, timeoutMs = 30000) {
   const start = Date.now();
@@ -66,11 +40,7 @@ const server = spawn(
 let browser;
 try {
   await waitForServer(URL);
-  const executablePath = findBrowserExecutable();
-  if (executablePath) console.log(`Using browser: ${executablePath}`);
-  browser = await chromium.launch(
-    executablePath ? { executablePath } : {}
-  );
+  browser = await chromium.launch();
   const page = await browser.newPage();
   await page.goto(URL, { waitUntil: "networkidle" });
   await page.pdf({
