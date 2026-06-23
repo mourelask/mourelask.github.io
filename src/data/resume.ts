@@ -81,7 +81,7 @@ export const EXPERIENCE: ResumeJob[] = [
     role: "Technical Art Director",
     period: "2018 – 2024",
     summary:
-      "Co-owner of the award-winning studio, leading both art and technical direction across a wide range of projects. Highlights from those years:",
+      "Co-owner (30%) of the award-winning studio, leading both art and technical direction across a wide range of projects. Highlights from those years:",
     bullets: [
       "Over 50 projects for 30+ clients in interactive media on mobile, desktop and web — mainly augmented and virtual reality",
       "20 exhibitions and conventions",
