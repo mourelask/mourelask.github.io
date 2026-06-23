@@ -226,6 +226,16 @@ import { PERSONAL, EXPERIENCE, EDUCATION, SKILLS } from "../data/resume";
     margin: 0.2rem 0;
   }
 
+  /* Keep entries from being split across page breaks. */
+  .job,
+  .project {
+    break-inside: avoid;
+  }
+  h2 {
+    break-inside: avoid;
+    break-after: avoid;
+  }
+
   @media print {
     .cv {
       padding: 0;

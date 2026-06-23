@@ -189,6 +189,6 @@ export const SKILLS: ResumeSkillGroup[] = [
   {
     label: "Interests",
     value:
-      "Building & modding custom 3D printers (Voron), engine programming, mentoring artists and devs, and sci-fi/fantasy novels",
+      "Building & modding custom 3D printers, engine programming, mentoring artists and devs, and sci-fi/fantasy novels",
   },
 ];
