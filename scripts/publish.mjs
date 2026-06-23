@@ -10,7 +10,13 @@ const msg = process.argv.slice(2).join(" ").trim() || "Update content";
 // Windows and needs a shell.
 function run(cmd, args, { shell = false } = {}) {
   console.log(`\n$ ${cmd} ${args.join(" ")}`);
-  const res = spawnSync(cmd, args, { stdio: "inherit", shell });
+  // When using a shell, pass the whole command as one string. Passing an args
+  // array together with shell:true triggers Node's DEP0190 warning (args are
+  // concatenated, not escaped). git runs without a shell, so it keeps the safe
+  // args array — important for the commit message, which may contain spaces.
+  const res = shell
+    ? spawnSync([cmd, ...args].join(" "), { stdio: "inherit", shell: true })
+    : spawnSync(cmd, args, { stdio: "inherit", shell: false });
   if (res.error) throw new Error(`${cmd} not found: ${res.error.message}`);
   if (res.status !== 0) throw new Error(`"${cmd} ${args.join(" ")}" exited with code ${res.status}`);
 }
