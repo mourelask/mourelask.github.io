@@ -4,19 +4,7 @@ title: "About — Konstantinos Mourelas"
 description: "Technical Artist & Programmer at Terahard, building Dunebound Tactics and RuneSmith. Former co-owner & tech/art director at eNVy softworks."
 ---
 
-```
-      ___           ___           ___           ___           ___
-     /\  \         /\  \         /\  \         /\__\         /\  \
-    /::\  \       /::\  \       /::\  \       /:/  /         \:\  \
-   /:/\:\  \     /:/\:\  \     /:/\:\  \     /:/  /           \:\  \
-  /::\~\:\  \   /::\~\:\__\   /:/  \:\  \   /:/  /  ___       /::\  \
- /:/\:\ \:\__\ /:/\:\ \:|__| /:/__/ \:\__\ /:/__/  /\__\     /:/\:\__\
- \/__\:\/:/  / \:\~\:\/:/  / \:\  \ /:/  / \:\  \ /:/  /    /:/  \/__/
-      \::/  /   \:\ \::/  /   \:\  /:/  /   \:\  /:/  /    /:/  /
-      /:/  /     \:\/:/  /     \:\/:/  /     \:\/:/  /     \/__/
-     /:/  /       \::/__/       \::/  /       \::/  /
-     \/__/         ~~            \/__/         \/__/
-```
+<p class="kicker">// ABOUT</p>
 
 # About
 
