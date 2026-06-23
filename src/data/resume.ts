@@ -37,6 +37,8 @@ export interface ResumeSkillGroup {
 export const PERSONAL = {
   name: "Konstantinos Mourelas",
   title: "Technical Artist · Game Developer",
+  summary:
+    "Technical artist and gameplay programmer with over a decade shipping games, AR/VR and real-time graphics. I specialize in rendering pipelines, shaders, VFX and lighting — and I'm equally at home building gameplay systems, tools and UI. I like owning the visual side of a project end-to-end and bridging the gap between art and engineering.",
   location: "Patras, Greece",
   email: "mourelask@gmail.com",
   website: "mourelask.github.io",
@@ -52,23 +54,22 @@ export const EXPERIENCE: ResumeJob[] = [
     role: "Technical Artist & Programmer",
     period: "2024 – Present",
     summary:
-      "Working across both tech art and gameplay programming on two upcoming titles.",
-    bullets: [
-      "Shaders, VFX and rendering work alongside gameplay systems and editor tooling",
-    ],
+      "Owning the visual pipeline across two upcoming titles while contributing to core architecture, gameplay and UI.",
     projects: [
       {
         name: "Dunebound Tactics",
         url: "https://store.steampowered.com/app/3034660/Dunebound_Tactics/",
         bullets: [
-          "Technical art and gameplay programming on a roguelite turn-based tactical RPG",
+          "Built and own the graphics pipeline — custom shaders, VFX, lighting and post-processing",
+          "Contributed gameplay systems and UI features",
         ],
       },
       {
         name: "RuneSmith",
         url: "https://store.steampowered.com/app/3716320/RuneSmith/",
         bullets: [
-          "Technical art and gameplay programming on a humorous dwarven crafting RPG",
+          "Established the project's core architecture — character controllers, interaction systems and UI",
+          "Led visual development, including shaders and a custom outline-renderer feature",
         ],
       },
     ],
@@ -80,7 +81,7 @@ export const EXPERIENCE: ResumeJob[] = [
     role: "Technical Art Director",
     period: "2018 – 2024",
     summary:
-      "As a co-owner of the award-winning indie studio, I wore both the Art and Technical Director hats depending on the project. In one way or another I was part of:",
+      "Co-owner of the award-winning studio, leading both art and technical direction across a wide range of projects. Highlights from those years:",
     bullets: [
       "Over 50 projects for 30+ clients in interactive media on mobile, desktop and web — mainly augmented and virtual reality",
       "20 exhibitions and conventions",
@@ -185,4 +186,9 @@ export const SKILLS: ResumeSkillGroup[] = [
   },
   { label: "Programming", value: "C#, C, GLSL, HLSL" },
   { label: "Languages", value: "English (fluent), Greek (fluent)" },
+  {
+    label: "Interests",
+    value:
+      "Building & modding custom 3D printers (Voron), engine programming, mentoring artists and devs, and sci-fi/fantasy novels",
+  },
 ];

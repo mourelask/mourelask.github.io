@@ -24,6 +24,7 @@ import { PERSONAL, EXPERIENCE, EDUCATION, SKILLS } from "../data/resume";
           <span class="dot">•</span>
           <a href={`https://${PERSONAL.website}`}>{PERSONAL.website}</a>
         </p>
+        {PERSONAL.summary && <p class="cv-summary">{PERSONAL.summary}</p>}
       </header>
 
       <section>
@@ -157,6 +158,13 @@ import { PERSONAL, EXPERIENCE, EDUCATION, SKILLS } from "../data/resume";
   .cv-contact .dot {
     margin: 0 6px;
     color: #999;
+  }
+  .cv-summary {
+    margin: 0.8rem auto 0;
+    max-width: 62ch;
+    text-align: center;
+    font-size: 10pt;
+    color: #333;
   }
   a {
     color: #1155cc;
